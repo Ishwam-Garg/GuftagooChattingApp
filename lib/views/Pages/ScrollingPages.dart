@@ -49,10 +49,13 @@ class _ScrollPagesState extends State<ScrollPages> {
                 height: MediaQuery.of(context).size.height,
                 child: PageView(
                   controller: _pageController,
+                  pageSnapping: false,
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
                   onPageChanged: (value){
                     setState(() {
                       _CurrentPage = value;
-                      _pageController.animateToPage(value, duration:Duration(milliseconds: 2), curve: Curves.easeIn);
+                      _pageController.animateToPage(value, duration:Duration(milliseconds: 2), curve: Curves.elasticIn);
                     });
                   },
                   children: [

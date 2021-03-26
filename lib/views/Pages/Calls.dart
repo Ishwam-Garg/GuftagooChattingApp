@@ -12,7 +12,7 @@ class _CallPageState extends State<CallPage> {
       backgroundColor: Colors.red,
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/background1.png'),fit: BoxFit.fill),
+          color: Colors.white,
         ),
       ),
     );

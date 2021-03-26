@@ -12,7 +12,7 @@ class _StoryPageState extends State<StoryPage> {
       backgroundColor: Colors.blueAccent,
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/background1.png'),fit: BoxFit.fill),
+          color: Colors.white,
         ),
       ),
     );

@@ -3,17 +3,20 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:whatsappinternproject/views/Pages/Calls.dart';
 import 'package:whatsappinternproject/views/Pages/Chats.dart';
 import 'package:whatsappinternproject/views/Pages/Story.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 class ScrollPages extends StatefulWidget {
+  final User user;
+
+  const ScrollPages({Key key, this.user}) : super(key: key);
   @override
   _ScrollPagesState createState() => _ScrollPagesState();
 }
 
 class _ScrollPagesState extends State<ScrollPages> {
 
-  BoxDecoration activePageDecoration = BoxDecoration(color: Color(0xff075E54), border: Border(bottom: BorderSide(color: Colors.green,width: 5)),);
+  BoxDecoration activePageDecoration = BoxDecoration(color: Color(0xff128C7E), border: Border(bottom: BorderSide(color: Colors.green,width: 5)),);
 
-  BoxDecoration inActivePageDecoration = BoxDecoration(color: Color(0xff075E54));
+  BoxDecoration inActivePageDecoration = BoxDecoration(color: Color(0xff128C7E));
 
   int _CurrentPage = 0;
 
@@ -24,7 +27,7 @@ class _ScrollPagesState extends State<ScrollPages> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           onPressed:(){},
-          backgroundColor: Color(0xff075E54),
+          backgroundColor: Color(0xff25D366),
           child: FloatingButtonIcon(_CurrentPage),
       ),
       body: Column(
@@ -33,7 +36,7 @@ class _ScrollPagesState extends State<ScrollPages> {
           Container(
             padding: EdgeInsets.only(top : 10),
             width: MediaQuery.of(context).size.width,
-            color: Color(0xff075E54),
+            color: Color(0xff128C7E),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -60,7 +63,7 @@ class _ScrollPagesState extends State<ScrollPages> {
                   },
                   children: [
                     ChatPage(),
-                    StoryPage(),
+                    StoryPage(user: widget.user,),
                     CallPage(),
                   ],
                 ),

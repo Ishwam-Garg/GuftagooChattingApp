@@ -1,10 +1,10 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+//import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 final googleSignIn = GoogleSignIn();
-FacebookLogin facebookLogin = FacebookLogin();
+//FacebookLogin facebookLogin = FacebookLogin();
 
 
 Future<User> google_sign_in() async {
@@ -59,11 +59,11 @@ Future<bool> signIn(String email,String password) async {
 Future<bool> signOutUser() async{
 
   User user = await auth.currentUser;
-  if(user.providerData[1].providerId == 'google.com')
-  {
+  try{
     await googleSignIn.disconnect();
-    await auth.signOut();
-    print('disconnecting from google and auth services');
+  }
+  catch (e){
+    print(e);
   }
 
   await auth.signOut();
@@ -74,7 +74,7 @@ Future<User> getCurrentUser() async{
   User user = await auth.currentUser;
   return user;
 }
-
+/*
 //for facebook login
 Future loginWithFacebook(FacebookLoginResult _result)async{
   FacebookAccessToken _accessToken = _result.accessToken;
@@ -101,4 +101,5 @@ Future handleLogin() async {
 
   }
 }
+*/
 

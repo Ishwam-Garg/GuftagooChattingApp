@@ -44,7 +44,7 @@ dev_dependencies:
   #for image picking
   image_picker: ^0.6.7+21
   #facebook login
-  flutter_facebook_login: ^3.0.0
+  #flutter_facebook_login: ^3.0.0
   #google signin plugins
   firebase_auth: ^0.18.4+1
   google_sign_in: ^4.5.4
@@ -55,6 +55,7 @@ dev_dependencies:
   firebase_core: ^0.5.3
   cloud_firestore: ^0.14.4
   firebase_storage: ^5.2.0
+  shared_preferences: ^0.5.8
   flutter_test:
     sdk: flutter
 

@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class RootUserLoggedIn extends StatelessWidget {
 
   User user;
-
   @override
   Widget build(BuildContext context) {
     //User is depreciated form of FirebaseUser
@@ -20,7 +19,7 @@ class RootUserLoggedIn extends StatelessWidget {
           {
             User user = snapshot.data;
             print(snapshot.data);
-            return HomeScreen();
+            return HomeScreen(user: user,);
           }
 
           return SignIn();

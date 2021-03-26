@@ -7,24 +7,23 @@ final googleSignIn = GoogleSignIn();
 FacebookLogin facebookLogin = FacebookLogin();
 
 
-Future<bool> google_SignIn() async {
+Future<User> google_sign_in() async {
+
   GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
 
-  if (googleSignIn != null){
+  if(googleSignIn != null)
+  {
     GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
-    AuthCredential credential = GoogleAuthProvider.credential(idToken: googleSignInAuthentication.idToken, accessToken: googleSignInAuthentication.accessToken);
+    AuthCredential credential = GoogleAuthProvider.credential(idToken: googleSignInAuthentication.idToken , accessToken: googleSignInAuthentication.accessToken);
 
     UserCredential result = await auth.signInWithCredential(credential);
 
     User user = await auth.currentUser;
 
-
-    print(user.uid);
-
-    return Future.value(true);
+    return user;
   }
-
+  return null;
 }
 
 
@@ -103,24 +102,3 @@ Future handleLogin() async {
   }
 }
 
-
-//below code is not in use currently
-/*
-Future<bool> getCurrentUserStatus() async
-{
-  User user = await auth.currentUser;
-  if(user.providerData[1].providerId == "google.com")
-    {
-      return true;
-    }
-  else
-    {
-      return false;
-    }
-}
-
-getCurrentUserImage() async{
-  //return await FirebaseAuth.instance.currentUser.photoURL.toString();
-  return await googleSignIn.currentUser.photoUrl.toString();
-}
-*/

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:whatsappinternproject/actions/RootUserLoggedIn.dart';
 import 'package:whatsappinternproject/views/HomeScreen.dart';
 import 'package:whatsappinternproject/views/SignIn.dart';
 
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 2),
             (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignIn()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => RootUserLoggedIn()));
         }
     );
   }

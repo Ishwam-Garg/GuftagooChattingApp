@@ -47,7 +47,8 @@ dev_dependencies:
   flutter_facebook_login: ^3.0.0
   #google signin plugins
   firebase_auth: ^0.18.4+1
-  google_sign_in: ^4.4.4
+  google_sign_in: ^4.5.4
+  #google_sign_in: ^4.4.4
   #state management
   path_provider: ^1.6.24
   #firebase servcies

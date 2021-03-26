@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:whatsappinternproject/views/Pages/ChatWindow.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 class Assets{
-  Widget ChatBox(String Name,String Message,String time,String url,BuildContext context){
+  Widget ChatBox(String Name,String url,String uid,String email,BuildContext context,User user){
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatWindow()));},
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatWindow(user: user,uid: uid,email: email,url: url,name: Name,)));},
       splashColor: Colors.black26,
       child: Container(
         padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,right:MediaQuery.of(context).size.width*0.05 ,top: MediaQuery.of(context).size.width*0.01),
@@ -52,11 +53,14 @@ class Assets{
                               style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500),
                             ),
                           ),
+                          /*
                           Align(
                               alignment: Alignment.topRight,
                               child: Text('$time',style: TextStyle(color: Color(0xff25D366),fontWeight: FontWeight.w400),)),
+                        */
                         ],
                       ),
+                      /*
                       SizedBox(height: 5,),
                       Align(
                         alignment: Alignment.centerLeft,
@@ -64,6 +68,7 @@ class Assets{
                           textAlign: TextAlign.left,
                           overflow: TextOverflow.clip,maxLines: 1,style: TextStyle(color: Colors.black54,fontSize: 14),),
                       ),
+                      */
                     ],
                   )),
             )

@@ -62,7 +62,7 @@ class _ScrollPagesState extends State<ScrollPages> {
                     });
                   },
                   children: [
-                    ChatPage(),
+                    ChatPage(user: widget.user),
                     StoryPage(user: widget.user,),
                     CallPage(),
                   ],

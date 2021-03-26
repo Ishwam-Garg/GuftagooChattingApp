@@ -28,8 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           leading: Container(),
           actions: [
-            Icon(Icons.search,color: Colors.white,),
-            SizedBox(width: 5,),
             GestureDetector(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Settings(user: widget.user,)));

@@ -119,7 +119,7 @@ class _SignInState extends State<SignIn> {
 
 
 
-    Map<String,String> UserData ={
+    Map<String,dynamic> UserData ={
       "Name": user.displayName,
       "uid": user.uid,
       "Photo_url": user.photoURL,
@@ -127,16 +127,11 @@ class _SignInState extends State<SignIn> {
       "phone": user.phoneNumber,
       "login_Date": formattedDate.toString(),
       "login_mode": LoginMode,
+      "searchIndex": indexList,
     };
 
 
-    Map<String,List<String>> searchIndexData = {
-      'searchIndex': indexList,
-    };
-
-
-    ref.collection("UserData").doc("information").set(UserData);
-    ref.set(searchIndexData);
+    ref.set(UserData);
   }
 
 }

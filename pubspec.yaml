@@ -31,6 +31,8 @@ dependencies:
 
 dev_dependencies:
   #for fonts and text related
+  animated_text_kit: ^2.2.0
+  shimmer: ^1.1.2
   google_fonts: ^1.1.1
   auto_size_text: ^2.1.0
   marquee: ^1.6.1
@@ -50,11 +52,13 @@ dev_dependencies:
   google_sign_in: ^4.5.4
   #google_sign_in: ^4.4.4
   #state management
+  provider: ^5.0.0
   path_provider: ^1.6.24
   #firebase servcies
   firebase_core: ^0.5.3
   cloud_firestore: ^0.14.4
   firebase_storage: ^5.2.0
+  #for saving dark and light mode
   shared_preferences: ^0.5.8
   flutter_test:
     sdk: flutter

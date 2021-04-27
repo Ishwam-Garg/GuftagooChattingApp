@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whatsappinternproject/views/Pages/Assets/Page%20Assets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shimmer/shimmer.dart';
 class StoryPage extends StatefulWidget {
   final User user;
 
@@ -36,8 +37,13 @@ class _StoryPageState extends State<StoryPage> {
                 ),
               ),
               Column(
-                children: List.generate(10, (index) => Assets().UserStoryBox('Charlie', 'Today', null, context)),
+                children: List.generate(10, (index) => Assets().ShimmerBox()),
               ),
+              /*
+              Column(
+                children: List.generate(10, (index) => Assets().ContactStoryBox('Charlie', 'Today', null, context)),
+              ),
+               */
             ],
           ),
         ),

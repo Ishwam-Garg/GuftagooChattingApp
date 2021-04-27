@@ -16,8 +16,9 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff128C7E),
-        title: Text('Settings',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        backgroundColor: Color(0xff703d57),
+        title: Text('Settings',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
           child: Column(
@@ -49,14 +50,22 @@ class _SettingsState extends State<Settings> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(widget.user.displayName,style: TextStyle(color: Colors.black87,fontSize: 16),),
-                        FlatButton(
+                        ElevatedButton(
                           onPressed: (){
                             signOutUser().whenComplete((){
                               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>SignIn()), (route) => false);
                             });
                           },
                           child: Text('Log out',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                          color: Color(0xff25D366),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                  (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.pressed))
+                                  return Color(0xff957186);
+                                return Color(0xff957186); // Use the component's default.
+                              },
+                            ),
+                          ),
                         ),
                       ],
                     )

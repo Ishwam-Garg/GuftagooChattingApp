@@ -18,7 +18,7 @@ class _ChatPageState extends State<ChatPage> {
       backgroundColor: Colors.transparent,
       body: Container(
         width: double.infinity,
-        height: double.infinity,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           color: Colors.transparent,
           //image: DecorationImage(image: AssetImage('assets/images/background1.png'),fit: BoxFit.fill),
@@ -32,20 +32,26 @@ class _ChatPageState extends State<ChatPage> {
                     if(snapshot.hasData)
                       {
                         return Container(
-                          height: MediaQuery.of(context).size.height*0.8,
-                          child: ListView.builder(
-                              itemCount: snapshot.data.docs.length,
-                              itemBuilder: (context,index){
-                                DocumentSnapshot data =snapshot.data.docs[index];
-                                return Assets().ChatBox(
-                                    data.data()["Name"],
-                                    data.data()["Photo_url"],
-                                    data.data()['uid'],
-                                    data.data()['email'],
-                                    context,
-                                    widget.user,
-                                );
-                              }),
+                            height: MediaQuery.of(context).size.height*0.8,
+                            child: ListView.builder(
+                                itemCount: snapshot.data.docs.length,
+                                itemBuilder: (context,index){
+                                  DocumentSnapshot data =snapshot.data.docs[index];
+                                  return Assets().ChatBox(
+                                      data.data()["Name"],
+                                      data.data()["Photo_url"],
+                                      data.data()['uid'],
+                                      data.data()['email'],
+                                      context,
+                                      widget.user,
+                                  );
+                                }),
+                          );
+                      }
+                    else if(snapshot.connectionState == ConnectionState.waiting)
+                      {
+                        return Column(
+                          children: List.generate(10, (index) => Assets().ShimmerBox()),
                         );
                       }
                     return Container();

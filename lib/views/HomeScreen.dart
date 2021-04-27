@@ -23,21 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
         return true as Future;
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xff128C7E),
-          elevation: 0,
-          leading: Container(),
-          actions: [
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Settings(user: widget.user,)));
-              },
-              child: Icon(Icons.more_vert,color: Colors.white,),
-            ),
-          ],
-          title: Text('Messenger'),
-          titleSpacing: -30,
-        ),
         body: ScrollPages(user: widget.user,),
       ),
     );

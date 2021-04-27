@@ -20,78 +20,117 @@ class ChatWindow extends StatefulWidget {
 
 class _ChatWindowState extends State<ChatWindow> {
 
+
+  ScrollController _controller = ScrollController();
+
   TextEditingController messageController = TextEditingController();
   String message;
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: Color(0xff128C7E),
+        backgroundColor: Color(0xff703d57),
         leading: GestureDetector(
             onTap: (){},
-            child: CircleAvatar(
-              backgroundColor: Colors.white70,
-              backgroundImage: Assets().chatImage(widget.url),
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: CircleAvatar(
+                backgroundColor: Colors.white70,
+                backgroundImage: Assets().chatImage(widget.url),
+              ),
             ),),
-        title: Text(widget.name.toString()),
+        title: Text(widget.name.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
         centerTitle: true,
+        actions: [
+          InkWell(
+            customBorder: CircleBorder(),
+            splashColor: Color(0xffd9b8c4),
+            onTap: (){},
+            child: Container(
+                padding: EdgeInsets.all(5),
+                child: Icon(Icons.more_vert,color: Colors.white,)),
+          ),
+        ],
       ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/backgroundSplash.jpg'),fit: BoxFit.fill),
+          gradient: LinearGradient(
+            colors: [
+              Color(0xffD9B8C4),
+              Color(0xff957186),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+          //image: DecorationImage(image: AssetImage('assets/images/backgroundSplash.jpg'),fit: BoxFit.fill),
         ),
         child: Stack(
               children: [
-                Positioned(
-                    top: 0,
-                    child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: Colors.transparent,
-                    height: MediaQuery.of(context).size.height*0.9-100,
-                      child: StreamBuilder(
-                        stream: FirebaseFirestore.instance.collection('Users').doc(widget.user.email).collection('Chats').doc(widget.uid)
-                            .collection('Messages').orderBy('createdAt',descending: false).snapshots(),
-                        builder: (context,snapshot){
-                          if(snapshot.connectionState == ConnectionState.waiting)
-                            {
-                              return CircularProgressIndicator();
-                            }
-                          else if(snapshot.hasData)
-                          {
-                            return Container(
-                              height: MediaQuery.of(context).size.height*0.9-80,
-                              child: ListView.builder(
-                                itemCount: snapshot.data.docs.length,
-                                itemBuilder: (context,index){
-                                  print(snapshot.data.docs.length);
-                                  DocumentSnapshot data =snapshot.data.docs[index];
-                                  return Align(
-                                    alignment: data.data()['createdBy'] == widget.user.uid ? Alignment.centerRight : Alignment.centerLeft,
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xff075E54),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      width: MediaQuery.of(context).size.width*0.4,
-                                      child: Column(
-                                        children: [
-                                          Text(data.data()["message"],textAlign: TextAlign.start,style: TextStyle(color: Colors.white,fontSize: 14),),
-                                        ],
-                                      ),
-                                    ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 80),
+                  child: StreamBuilder(
+                            stream: FirebaseFirestore.instance.collection('Users').doc(widget.user.email).collection('Chats').doc(widget.uid)
+                                .collection('Messages').orderBy('createdAt',descending: false).snapshots(),
+                            builder: (context,snapshot){
+
+                              if(snapshot.connectionState == ConnectionState.waiting)
+                                {
+                                  return CircularProgressIndicator();
+                                }
+                              else if(snapshot.hasData)
+                              {
+                                WidgetsBinding.instance.addPostFrameCallback((_) {
+                                    if(_controller.hasClients)
+                                      _controller.animateTo(_controller.position.maxScrollExtent,
+                                          duration: Duration(milliseconds: 500),
+                                          curve: Curves.fastOutSlowIn);
+                                });
+                                return ListView.builder(
+                                    physics: ScrollPhysics(),
+                                    controller: _controller,
+                                    scrollDirection: Axis.vertical,
+                                    reverse: false,
+                                    itemCount: snapshot.data.docs.length,
+                                    itemBuilder: (context,index){
+                                      print(snapshot.data.docs.length);
+                                      DocumentSnapshot data =snapshot.data.docs[index];
+                                      return Align(
+                                        alignment: data.data()['createdBy'] == widget.user.uid ? Alignment.centerRight : Alignment.centerLeft,
+                                        child: Container(
+                                          margin: EdgeInsets.only(left: 10,top: 10,right: 10),
+                                          padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xff957186),
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          width: MediaQuery.of(context).size.width*0.4,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(data.data()["message"],textAlign: TextAlign.start,
+                                                style: TextStyle(color: Colors.white,fontSize: 14),),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   );
-                                },
-                              ),
-                            );
-                          }
-                          return Container();
-                        },
-                      ),
-                )),
+                              }
+                              return Container();
+                            },
+                          ),
+                ),
                 Positioned(
                   bottom: 0,
                   child: Container(
@@ -106,41 +145,30 @@ class _ChatWindowState extends State<ChatWindow> {
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 5),
                             decoration: BoxDecoration(
-                              color: Color(0xff878787),
+                              color: Color(0xffD9B8C4),
                               borderRadius: BorderRadius.circular(40),
                             ),
                             child: TextField(
+
                               onChanged: (value){
-                                setState(() {
-                                  message = value;
-                                });
+                                message = value;
                               },
                               onSubmitted: (value){
-                                setState(() {
-                                  message = value;
-                                });
+                                message = value;
                               },
                               controller: messageController,
                               textAlign: TextAlign.start,
                               cursorColor: Colors.white70,
                               style: TextStyle(color: Colors.white,fontSize: 14),
                               decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(40),
-                                    borderSide: BorderSide(
-                                      color: Color(0xff878787),
-                                    )
-                                ),
                                 hintText: 'Type your text',
-                                hintStyle: TextStyle(color: Colors.white30),
+                                hintStyle: TextStyle(color: Colors.white30,),
                                 enabled: true,
-
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(40),
-                                    borderSide: BorderSide(
-                                      color: Color(0xff878787),
-                                    )
-                                ),
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                //prefixIcon: Icon(Icons.face_outlined,color: Color(0xff703557),),
+                                contentPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 4),
                               ),
                             ),
                           ),
@@ -150,6 +178,7 @@ class _ChatWindowState extends State<ChatWindow> {
                           onTap: (){
                             if(message.isNotEmpty)
                             {
+
                               FirebaseFirestore.instance.collection('Users').doc(widget.user.email).collection('Chats')
                                   .doc(widget.uid).collection('Messages').add({
                                 'message': message,
@@ -163,12 +192,15 @@ class _ChatWindowState extends State<ChatWindow> {
                                 'createdBy': widget.user.uid,
                               });
                               messageController.clear();
+                              setState(() {
+                                message = null;
+                              });
                             }
                           },
                           child: CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Color(0xff075E54),
-                            child: Icon(Icons.send,color: Colors.white,),
+                            radius: 24,
+                            backgroundColor: Color(0xff703d57),
+                            child: Icon(Icons.send,color: Colors.white,size: 16,),
                           ),
                         ),
                       ],

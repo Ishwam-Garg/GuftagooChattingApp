@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:whatsappinternproject/actions/RootUserLoggedIn.dart';
 import 'package:whatsappinternproject/views/HomeScreen.dart';
 import 'package:whatsappinternproject/views/SignIn.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
           }
         else
           {
-
+                ShowDialog();
           }
       }).catchError((Error){
 
@@ -38,15 +38,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void ShowDialog(){
     showDialog(context: context,
-    builder: (context)=>AlertDialog(
-      title: Text('No internet Connection'),
-      content: Text('Make sure you have active internet connection'),
-      actions: <Widget>[
-        FlatButton(onPressed: (){
-          SystemChannels.platform.invokeMethod('Systemnavigator.pop');
-        }, child: Text('Exit',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-      ],
-    )
+    builder: (context){
+      return AlertDialog(
+        title: Text('No internet Connection'),
+        content: Text('Make sure you have active internet connection'),
+        actions: <Widget>[
+          FlatButton(onPressed: (){
+            SystemChannels.platform.invokeMethod('Systemnavigator.pop');
+          }, child: Text('Exit',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+        ],
+      );
+    }
     );
   }
 
@@ -55,31 +57,24 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
         body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage('assets/images/backgroundSplash.jpg'),fit: BoxFit.fill),
-          ),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-                Center(
-                    child: Image.asset("assets/images/icon.png",width: MediaQuery.of(context).size.width*0.4,)
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text('Just Send your message in an instant to anyone',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),)),
-                ),
-              SizedBox(height: 30,),
+          child: Center(
+            child: ColorizeAnimatedTextKit(
+              repeatForever: true,
+              text: [
+                'guftagoo',
+              ],
+              speed: Duration(milliseconds: 500),
+              textStyle: GoogleFonts.satisfy(
+                fontSize: 54,
+                fontWeight: FontWeight.bold,
+              ),
+              colors: [
+                Color(0xffDA44bb),
+                Color(0xff8921aa),
               ],
             ),
-        )
+          ),
+        ),
     );
   }
 

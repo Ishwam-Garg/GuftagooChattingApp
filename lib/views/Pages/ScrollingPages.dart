@@ -68,14 +68,14 @@ class _ScrollPagesState extends State<ScrollPages> {
           ),
         body: TabBarView(
           physics: ScrollPhysics(),
-            children: <Widget>[
-              ChatPage(user: widget.user,),
-              StoryPage(user: widget.user,),
-              CallPage(),
-            ],
+          children: <Widget>[
+            ChatPage(user: widget.user,),
+            StoryPage(user: widget.user,),
+            CallPage(),
+          ],
+        )
         ),
-      ),
-    );
+      );
   }
 
   Widget HeaderTile(String text,int index)
@@ -112,3 +112,6 @@ class _ScrollPagesState extends State<ScrollPages> {
   }
 
 }
+/*
+
+ */

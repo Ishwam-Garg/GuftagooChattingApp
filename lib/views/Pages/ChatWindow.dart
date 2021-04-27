@@ -39,7 +39,29 @@ class _ChatWindowState extends State<ChatWindow> {
       appBar: AppBar(
         backgroundColor: Color(0xff703d57),
         leading: GestureDetector(
-            onTap: (){},
+            onTap: (){
+                showDialog(context: context, builder: (BuildContext context){
+                  return AlertDialog(
+                    backgroundColor: Color(0xff703d57),
+                    contentPadding: EdgeInsets.all(0),
+                    title: Image(image: NetworkImage(widget.url),fit: BoxFit.fill,height: 200,),
+                    titlePadding: EdgeInsets.all(0),
+                    actionsPadding: EdgeInsets.all(0),
+                    content: Container(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(Icons.chat,color: Colors.white,size: 28,),
+                          Icon(Icons.call,color: Colors.white,size: 28,),
+                          Icon(Icons.videocam,color: Colors.white,size: 28,),
+                          Icon(Icons.info_outline,color: Colors.white,size: 28,),
+                        ],
+                      ),
+                    ),
+                  );
+                });
+            },
             child: Container(
               padding: EdgeInsets.all(10),
               child: CircleAvatar(
@@ -213,9 +235,5 @@ class _ChatWindowState extends State<ChatWindow> {
       ),
     );
   }
-
-
-
-
 }
 

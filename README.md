@@ -15,6 +15,16 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+Inspiration:
+When we realised that the foriegn apps are ruling the indian society we decided to start a app inspired from the indian culture and thus named it as Guftagoo (means chatting in english)
+
+Packages:
+
+FirebaseAuth: firebase_auth: ^1.1.2
+FirebaseCore: firebase_core: ^1.1.0
+FirebaseStorage: firebase_storage: ^8.0.5
+FirebaseCloudFirestore: cloud_firestore: ^1.0.7
+
 
 ![smartmockups_ko0z89w6](https://user-images.githubusercontent.com/69312564/116348071-04965600-a80b-11eb-8546-a4ceedddfdf3.jpg)
 

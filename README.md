@@ -25,6 +25,13 @@ FirebaseCore: firebase_core: ^1.1.0
 FirebaseStorage: firebase_storage: ^8.0.5
 FirebaseCloudFirestore: cloud_firestore: ^1.0.7
 
+Progress:
+Currently One to One chat is working. 
+
+1) To make notifications system first and group chat feature (text only).
+2) Enable video, images support
+3) Dark + Light theme ui
+4) phone auth support intead of email which is currently
 
 ![smartmockups_ko0z89w6](https://user-images.githubusercontent.com/69312564/116348071-04965600-a80b-11eb-8546-a4ceedddfdf3.jpg)
 
